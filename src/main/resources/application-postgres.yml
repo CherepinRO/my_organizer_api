@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Super Organizer
+  datasource:
+    url: jdbc:postgresql://localhost:5432/super_organizer_db
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # Disable H2 console for PostgreSQL profile
+  h2:
+    console:
+      enabled: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  info:
+    title: Super Organizer API
+    description: A powerful task management REST API with PostgreSQL database
+    version: 1.0.0

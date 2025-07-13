@@ -29,6 +29,9 @@ dependencies {
     // H2 Database for development
     runtimeOnly("com.h2database:h2")
     
+    // PostgreSQL Database for production
+    runtimeOnly("org.postgresql:postgresql")
+    
     // Swagger/OpenAPI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
     
