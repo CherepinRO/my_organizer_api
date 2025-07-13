@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.superorganizer.service.TaskServiceTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2025-07-13T11:49:28" hostname="cursor" time="0.017">
+  <properties/>
+  <testcase name="getTaskById should throw exception when not found()" classname="com.superorganizer.service.TaskServiceTest" time="0.002"/>
+  <testcase name="getTasksByPriority should return filtered tasks()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="getTasksOrderedByDeadline should return ordered tasks()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="getTasksByDeadline should return tasks with deadline when hasDeadline is true()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="deleteTask should delete when task exists()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="getTaskById should return task when found()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="updateTask should throw exception when task not found()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="getTasksByDeadline should return tasks without deadline when hasDeadline is false()" classname="com.superorganizer.service.TaskServiceTest" time="0.0"/>
+  <testcase name="createTask should save and return task response()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="searchTasks should call repository with correct parameters()" classname="com.superorganizer.service.TaskServiceTest" time="0.0"/>
+  <testcase name="getTasksOrderedByPriority should return ordered tasks()" classname="com.superorganizer.service.TaskServiceTest" time="0.0"/>
+  <testcase name="getAllTasks should return all tasks()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="updateTask should update and return task()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="getTasksByType should return filtered tasks()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <testcase name="getTasksOrderedByDate should return ordered tasks()" classname="com.superorganizer.service.TaskServiceTest" time="0.0"/>
+  <testcase name="deleteTask should throw exception when task not found()" classname="com.superorganizer.service.TaskServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

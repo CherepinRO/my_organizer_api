@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.superorganizer.controller.TaskControllerTest" tests="19" skipped="0" failures="2" errors="0" timestamp="2025-07-13T11:49:24" hostname="cursor" time="0.397">
+  <properties/>
+  <testcase name="PUT api_tasks_id should return 404 for non-existent task()" classname="com.superorganizer.controller.TaskControllerTest" time="0.226"/>
+  <testcase name="GET api_tasks_deadline should return tasks by deadline status()" classname="com.superorganizer.controller.TaskControllerTest" time="0.034"/>
+  <testcase name="GET api_tasks_ordered_priority should return tasks ordered by priority()" classname="com.superorganizer.controller.TaskControllerTest" time="0.003"/>
+  <testcase name="PUT api_tasks_id should update task and return 200()" classname="com.superorganizer.controller.TaskControllerTest" time="0.006"/>
+  <testcase name="GET api_tasks_id should return task by id()" classname="com.superorganizer.controller.TaskControllerTest" time="0.004"/>
+  <testcase name="GET api_tasks_deadline should use default value for hasDeadline()" classname="com.superorganizer.controller.TaskControllerTest" time="0.002"/>
+  <testcase name="GET api_tasks_id should return 404 for non-existent task()" classname="com.superorganizer.controller.TaskControllerTest" time="0.003"/>
+  <testcase name="DELETE api_tasks_id should delete task and return 204()" classname="com.superorganizer.controller.TaskControllerTest" time="0.004"/>
+  <testcase name="POST api_tasks should return 400 for invalid request()" classname="com.superorganizer.controller.TaskControllerTest" time="0.006">
+    <failure message="java.lang.AssertionError: Status expected:&lt;400&gt; but was:&lt;201&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Status expected:&lt;400&gt; but was:&lt;201&gt;
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:637)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.superorganizer.controller.TaskControllerTest.POST api_tasks should return 400 for invalid request(TaskControllerTest.kt:88)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+</failure>
+  </testcase>
+  <testcase name="POST api_tasks should create task and return 201()" classname="com.superorganizer.controller.TaskControllerTest" time="0.006"/>
+  <testcase name="GET api_tasks_ordered_deadline should return tasks ordered by deadline()" classname="com.superorganizer.controller.TaskControllerTest" time="0.003"/>
+  <testcase name="GET api_tasks_priority_priority should return tasks by priority()" classname="com.superorganizer.controller.TaskControllerTest" time="0.003"/>
+  <testcase name="GET api_tasks should return all tasks()" classname="com.superorganizer.controller.TaskControllerTest" time="0.005"/>
+  <testcase name="GET api_tasks_search should work with no filters()" classname="com.superorganizer.controller.TaskControllerTest" time="0.007"/>
+  <testcase name="GET api_tasks_ordered_date should return tasks ordered by date()" classname="com.superorganizer.controller.TaskControllerTest" time="0.005"/>
+  <testcase name="GET api_tasks_type_taskType should return tasks by type()" classname="com.superorganizer.controller.TaskControllerTest" time="0.003"/>
+  <testcase name="DELETE api_tasks_id should return 404 for non-existent task()" classname="com.superorganizer.controller.TaskControllerTest" time="0.013"/>
+  <testcase name="POST api_tasks should handle validation errors correctly()" classname="com.superorganizer.controller.TaskControllerTest" time="0.009">
+    <failure message="java.lang.AssertionError: Status expected:&lt;400&gt; but was:&lt;500&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Status expected:&lt;400&gt; but was:&lt;500&gt;
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
+	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:637)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.superorganizer.controller.TaskControllerTest.POST api_tasks should handle validation errors correctly(TaskControllerTest.kt:361)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+</failure>
+  </testcase>
+  <testcase name="GET api_tasks_search should search tasks with filters()" classname="com.superorganizer.controller.TaskControllerTest" time="0.03"/>
+  <system-out><![CDATA[11:49:23.179 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.superorganizer.controller.TaskControllerTest]: TaskControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:49:23.282 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.superorganizer.SuperOrganizerApplication for test class com.superorganizer.controller.TaskControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2025-07-13T11:49:23.529Z  INFO 2763 --- [Super Organizer] [    Test worker] c.s.controller.TaskControllerTest        : Starting TaskControllerTest using Java 21.0.7 with PID 2763 (started by ubuntu in /workspace)
+2025-07-13T11:49:23.530Z  INFO 2763 --- [Super Organizer] [    Test worker] c.s.controller.TaskControllerTest        : No active profile set, falling back to 1 default profile: "default"
+2025-07-13T11:49:24.879Z  INFO 2763 --- [Super Organizer] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2025-07-13T11:49:24.880Z  INFO 2763 --- [Super Organizer] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2025-07-13T11:49:24.881Z  INFO 2763 --- [Super Organizer] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2025-07-13T11:49:24.909Z  INFO 2763 --- [Super Organizer] [    Test worker] c.s.controller.TaskControllerTest        : Started TaskControllerTest in 1.585 seconds (process running for 2.524)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/tasks
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"129"]
+             Body = {"date":"2024-01-15","taskName":"","comment":"Test comment","deadline":"2024-01-20T17:00:00","priority":"HIGH","taskType":"WORK"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.superorganizer.controller.TaskController
+           Method = com.superorganizer.controller.TaskController#createTask(TaskRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = []
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/tasks
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"57"]
+             Body = {"taskName":"","priority":"INVALID","taskType":"INVALID"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.superorganizer.controller.TaskController
+           Method = com.superorganizer.controller.TaskController#createTask(TaskRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.http.converter.HttpMessageNotReadableException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 500
+    Error message = null
+          Headers = [Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"timestamp":"2025-07-13T11:49:25.276287801","status":500,"error":"Internal Server Error","message":"An unexpected error occurred","path":null}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/home/ubuntu/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.10/90ed94ac044ea8953b224304c762316e91fd6b31/byte-buddy-agent-1.14.10.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

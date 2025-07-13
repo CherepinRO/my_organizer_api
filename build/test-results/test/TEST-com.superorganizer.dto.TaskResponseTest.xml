@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.superorganizer.dto.TaskResponseTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-07-13T11:49:25" hostname="cursor" time="0.003">
+  <properties/>
+  <testcase name="TaskResponse from should handle null comment()" classname="com.superorganizer.dto.TaskResponseTest" time="0.0"/>
+  <testcase name="TaskResponse should have correct data class properties()" classname="com.superorganizer.dto.TaskResponseTest" time="0.001"/>
+  <testcase name="TaskResponse should handle minimum required fields()" classname="com.superorganizer.dto.TaskResponseTest" time="0.0"/>
+  <testcase name="TaskResponse from should handle null deadline()" classname="com.superorganizer.dto.TaskResponseTest" time="0.001"/>
+  <testcase name="TaskResponse from should create response from task entity()" classname="com.superorganizer.dto.TaskResponseTest" time="0.0"/>
+  <testcase name="TaskResponse from should handle all task types()" classname="com.superorganizer.dto.TaskResponseTest" time="0.0"/>
+  <testcase name="TaskResponse from should handle all priority types()" classname="com.superorganizer.dto.TaskResponseTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

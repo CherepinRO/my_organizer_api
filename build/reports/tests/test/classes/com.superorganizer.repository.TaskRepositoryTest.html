@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - TaskRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>TaskRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.superorganizer.repository.html">com.superorganizer.repository</a> &gt; TaskRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">12</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.069s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">findByDateBetween should return tasks within date range()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDeadlineBetween should return tasks within deadline range()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDeadlineIsNotNull should return tasks with deadline()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByDeadlineIsNull should return tasks without deadline()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByOrderByDateDesc should return tasks ordered by date descending()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByOrderByDeadlineAsc should return tasks ordered by deadline()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByOrderByPriorityAsc should return tasks ordered by priority()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByPriority should return tasks with matching priority()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByTaskNameContainingIgnoreCase should return matching tasks()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findByTaskType should return tasks with matching type()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findTasksByFilters should return all tasks when no filters provided()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">findTasksByFilters should return tasks matching all filters()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2025-07-13T11:49:28.137Z  INFO 2763 --- [Super Organizer] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.superorganizer.repository.TaskRepositoryTest]: TaskRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-07-13T11:49:28.143Z  INFO 2763 --- [Super Organizer] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.superorganizer.SuperOrganizerApplication for test class com.superorganizer.repository.TaskRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2025-07-13T11:49:28.156Z  INFO 2763 --- [Super Organizer] [    Test worker] c.s.repository.TaskRepositoryTest        : Starting TaskRepositoryTest using Java 21.0.7 with PID 2763 (started by ubuntu in /workspace)
+2025-07-13T11:49:28.156Z  INFO 2763 --- [Super Organizer] [    Test worker] c.s.repository.TaskRepositoryTest        : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-07-13T11:49:28.187Z  INFO 2763 --- [Super Organizer] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-13T11:49:28.190Z  INFO 2763 --- [Super Organizer] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 1 JPA repository interface.
+2025-07-13T11:49:28.194Z  INFO 2763 --- [Super Organizer] [    Test worker] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2025-07-13T11:49:28.204Z  INFO 2763 --- [Super Organizer] [    Test worker] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:4236ae32-1c16-455b-a671-3221041b61e7;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2025-07-13T11:49:28.212Z  INFO 2763 --- [Super Organizer] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-13T11:49:28.213Z  INFO 2763 --- [Super Organizer] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-13T11:49:28.215Z  INFO 2763 --- [Super Organizer] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-13T11:49:28.216Z  WARN 2763 --- [Super Organizer] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-13T11:49:28.226Z  INFO 2763 --- [Super Organizer] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists tasks cascade 
+Hibernate: create table tasks (date date not null, created_at timestamp(6) not null, deadline timestamp(6), id bigint generated by default as identity, updated_at timestamp(6) not null, comment TEXT, priority varchar(255) not null check (priority in ('HIGH','MEDIUM','LOW')), task_name varchar(255) not null, task_type varchar(255) not null check (task_type in ('WORK','HOME')), primary key (id))
+2025-07-13T11:49:28.228Z  INFO 2763 --- [Super Organizer] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-13T11:49:28.267Z  INFO 2763 --- [Super Organizer] [    Test worker] c.s.repository.TaskRepositoryTest        : Started TaskRepositoryTest in 0.12 seconds (process running for 5.882)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.deadline between ? and ?
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.date between ? and ?
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.deadline is not null
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 order by t1_0.date desc
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.deadline is null
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where (? is null or lower(t1_0.task_name) like lower(('%'||?||'%')) escape '') and (? is null or t1_0.priority=?) and (? is null or t1_0.task_type=?) and (? is null or t1_0.date&gt;=?) and (? is null or t1_0.date&lt;=?)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 order by t1_0.deadline
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.priority=?
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.priority=?
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.task_type=?
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where t1_0.task_type=?
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 order by t1_0.priority
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where upper(t1_0.task_name) like upper(?) escape '\'
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: insert into tasks (comment,created_at,date,deadline,priority,task_name,task_type,updated_at,id) values (?,?,?,?,?,?,?,?,default)
+Hibernate: select t1_0.id,t1_0.comment,t1_0.created_at,t1_0.date,t1_0.deadline,t1_0.priority,t1_0.task_name,t1_0.task_type,t1_0.updated_at from tasks t1_0 where (? is null or lower(t1_0.task_name) like lower(('%'||?||'%')) escape '') and (? is null or t1_0.priority=?) and (? is null or t1_0.task_type=?) and (? is null or t1_0.date&gt;=?) and (? is null or t1_0.date&lt;=?)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.5</a> at Jul 13, 2025, 11:49:28 AM</p>
+</div>
+</div>
+</body>
+</html>
