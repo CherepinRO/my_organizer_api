@@ -1,0 +1,408 @@
+# Super Organizer API - Complete Kubernetes Deployment
+# This file contains all essential resources for deploying the Super Organizer API
+
+---
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: super-organizer
+  labels:
+    name: super-organizer
+    app: super-organizer-api
+
+---
+# ConfigMap for application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: super-organizer-config
+  namespace: super-organizer
+data:
+  application.yml: |
+    server:
+      port: 8080
+    
+    spring:
+      application:
+        name: Super Organizer
+      datasource:
+        url: jdbc:postgresql://super-organizer-postgres:5432/super_organizer_db
+        driver-class-name: org.postgresql.Driver
+        username: postgres
+        password: password
+      jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+          ddl-auto: update
+        show-sql: false
+        properties:
+          hibernate:
+            format_sql: true
+    
+    springdoc:
+      api-docs:
+        path: /api-docs
+      swagger-ui:
+        path: /swagger-ui.html
+      info:
+        title: Super Organizer API
+        description: A powerful task management REST API
+        version: 1.0.0
+
+---
+# Secret for database credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: super-organizer-secret
+  namespace: super-organizer
+type: Opaque
+data:
+  postgres-username: cG9zdGdyZXM=
+  postgres-password: cGFzc3dvcmQ=
+  postgres-database: c3VwZXJfb3JnYW5pemVyX2Ri
+
+---
+# ConfigMap for PostgreSQL initialization scripts
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+  namespace: super-organizer
+data:
+  1-schema.sql: |
+    CREATE TABLE IF NOT EXISTS tasks (
+        id BIGSERIAL PRIMARY KEY,
+        date DATE NOT NULL,
+        task_name VARCHAR(255) NOT NULL,
+        comment TEXT,
+        deadline TIMESTAMP,
+        priority VARCHAR(10) NOT NULL CHECK (priority IN ('HIGH', 'MEDIUM', 'LOW')),
+        task_type VARCHAR(10) NOT NULL CHECK (task_type IN ('WORK', 'HOME')),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    CREATE INDEX IF NOT EXISTS idx_tasks_date ON tasks(date);
+    CREATE INDEX IF NOT EXISTS idx_tasks_priority ON tasks(priority);
+    CREATE INDEX IF NOT EXISTS idx_tasks_type ON tasks(task_type);
+    CREATE INDEX IF NOT EXISTS idx_tasks_deadline ON tasks(deadline);
+  
+  2-sample-data.sql: |
+    INSERT INTO tasks (date, task_name, comment, deadline, priority, task_type) VALUES
+    ('2024-01-15', 'Complete project report', 'Quarterly project summary', '2024-01-20 17:00:00', 'HIGH', 'WORK'),
+    ('2024-01-16', 'Team meeting', 'Weekly standup', '2024-01-16 10:00:00', 'MEDIUM', 'WORK'),
+    ('2024-01-17', 'Grocery shopping', 'Buy groceries for the week', '2024-01-18 18:00:00', 'LOW', 'HOME'),
+    ('2024-01-18', 'Code review', 'Review pull requests', '2024-01-19 16:00:00', 'HIGH', 'WORK'),
+    ('2024-01-19', 'Laundry', 'Wash clothes', NULL, 'MEDIUM', 'HOME'),
+    ('2024-01-20', 'Client presentation', 'Present quarterly results', '2024-01-20 14:00:00', 'HIGH', 'WORK'),
+    ('2024-01-21', 'Exercise', 'Go to the gym', '2024-01-21 19:00:00', 'MEDIUM', 'HOME'),
+    ('2024-01-22', 'Database optimization', 'Optimize database queries', '2024-01-25 17:00:00', 'HIGH', 'WORK'),
+    ('2024-01-23', 'Dinner with friends', 'Meet at restaurant', '2024-01-23 20:00:00', 'LOW', 'HOME'),
+    ('2024-01-24', 'Security audit', 'Conduct security review', '2024-01-26 15:00:00', 'HIGH', 'WORK');
+
+---
+# PersistentVolume for PostgreSQL
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: super-organizer-postgres-pv
+  namespace: super-organizer
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/postgres"
+
+---
+# PersistentVolumeClaim for PostgreSQL
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: super-organizer-postgres-pvc
+  namespace: super-organizer
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+# PostgreSQL Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: super-organizer-postgres
+  namespace: super-organizer
+  labels:
+    app: super-organizer-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: super-organizer-postgres
+  template:
+    metadata:
+      labels:
+        app: super-organizer-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: super-organizer-secret
+              key: postgres-database
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: super-organizer-secret
+              key: postgres-username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: super-organizer-secret
+              key: postgres-password
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        - name: init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: super-organizer-postgres-pvc
+      - name: init-scripts
+        configMap:
+          name: postgres-init-scripts
+
+---
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: super-organizer-postgres
+  namespace: super-organizer
+  labels:
+    app: super-organizer-postgres
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: super-organizer-postgres
+
+---
+# Application Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: super-organizer-api
+  namespace: super-organizer
+  labels:
+    app: super-organizer-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: super-organizer-api
+  template:
+    metadata:
+      labels:
+        app: super-organizer-api
+    spec:
+      containers:
+      - name: super-organizer-api
+        image: super-organizer:1.0.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+        - name: JAVA_OPTS
+          value: "-Xmx512m -Xms256m"
+        volumeMounts:
+        - name: app-config
+          mountPath: /app/config
+          readOnly: true
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+      volumes:
+      - name: app-config
+        configMap:
+          name: super-organizer-config
+
+---
+# Application Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: super-organizer-api
+  namespace: super-organizer
+  labels:
+    app: super-organizer-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: super-organizer-api
+
+---
+# Horizontal Pod Autoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: super-organizer-hpa
+  namespace: super-organizer
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: super-organizer-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15
+
+---
+# Ingress (Optional - uncomment if you have an ingress controller)
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: super-organizer-ingress
+#   namespace: super-organizer
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#     nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+#     nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: super-organizer.local
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: super-organizer-api
+#             port:
+#               number: 80
+#       - path: /api
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: super-organizer-api
+#             port:
+#               number: 80
+#       - path: /swagger-ui
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: super-organizer-api
+#             port:
+#               number: 80
+#       - path: /api-docs
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: super-organizer-api
+#             port:
+#               number: 80

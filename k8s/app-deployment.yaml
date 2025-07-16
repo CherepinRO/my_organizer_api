@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: super-organizer-api
+  namespace: super-organizer
+  labels:
+    app: super-organizer-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: super-organizer-api
+  template:
+    metadata:
+      labels:
+        app: super-organizer-api
+    spec:
+      containers:
+      - name: super-organizer-api
+        image: super-organizer:1.0.0
+        imagePullPolicy: Never  # For local development, change to Always for production
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+        - name: JAVA_OPTS
+          value: "-Xmx512m -Xms256m"
+        volumeMounts:
+        - name: app-config
+          mountPath: /app/config
+          readOnly: true
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+      volumes:
+      - name: app-config
+        configMap:
+          name: super-organizer-config
+      imagePullSecrets:
+      - name: registry-secret  # Only needed if using private registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: super-organizer-api
+  namespace: super-organizer
+  labels:
+    app: super-organizer-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: super-organizer-api
