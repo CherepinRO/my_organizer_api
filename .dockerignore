@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# Gradle
+.gradle
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# IDE
+.idea
+*.iml
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Documentation
+*.md
+!README.md
+
+# Database
+database/
+
+# Kubernetes
+k8s/
+
+# Scripts
+setup_postgres.sh
