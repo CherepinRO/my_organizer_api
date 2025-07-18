@@ -1,7 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: super-organizer
+  name: staging
   labels:
-    name: super-organizer
-    app: super-organizer-api
+    name: staging
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+  labels:
+    name: production

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-organizer-api
+  namespace: production
+  labels:
+    app: my-organizer-api
+    environment: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-organizer-api
+  template:
+    metadata:
+      labels:
+        app: my-organizer-api
+        environment: production
+    spec:
+      containers:
+      - name: app
+        image: IMAGE_TAG
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "postgres"
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://postgres-production:5432/super_organizer_db"
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: password
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      imagePullSecrets:
+      - name: dockerhub-secret

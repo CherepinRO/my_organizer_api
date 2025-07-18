@@ -1,0 +1,126 @@
+name: CD - Production
+
+on:
+  workflow_run:
+    workflows: ["CD - Staging"]
+    types:
+      - completed
+    branches: [ develop ]
+
+jobs:
+  wait-for-approval:
+    runs-on: ubuntu-latest
+    environment: production
+    outputs:
+      approved: ${{ steps.approval.outputs.approved }}
+    steps:
+      - name: Wait for approval
+        id: approval
+        run: |
+          echo "Waiting for manual approval to deploy to production..."
+          echo "approved=true" >> $GITHUB_OUTPUT
+
+  build-production:
+    needs: wait-for-approval
+    if: needs.wait-for-approval.outputs.approved == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ secrets.DOCKERHUB_USERNAME }}/my-organizer-api
+        tags: |
+          type=ref,event=branch
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=production,enable={{is_default_branch}}
+          type=sha,prefix=prod-
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  deploy-production:
+    needs: [wait-for-approval, build-production]
+    if: needs.wait-for-approval.outputs.approved == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Configure kubectl
+      run: |
+        echo "${{ secrets.KUBE_CONFIG_PROD }}" | base64 -d > kubeconfig
+        export KUBECONFIG=kubeconfig
+
+    - name: Deploy to production
+      run: |
+        # Update image tag in deployment
+        sed -i "s|IMAGE_TAG|${{ secrets.DOCKERHUB_USERNAME }}/my-organizer-api:production|g" k8s/production-deployment.yaml
+        
+        # Apply Kubernetes manifests
+        kubectl apply -f k8s/namespace.yaml
+        kubectl apply -f k8s/production-deployment.yaml
+        kubectl apply -f k8s/production-service.yaml
+        kubectl apply -f k8s/production-ingress.yaml
+
+    - name: Wait for deployment
+      run: |
+        kubectl rollout status deployment/my-organizer-api -n production --timeout=300s
+
+    - name: Run health checks
+      run: |
+        # Wait for service to be ready
+        kubectl wait --for=condition=ready pod -l app=my-organizer-api -n production --timeout=300s
+        
+        # Get service URL
+        SERVICE_URL=$(kubectl get svc my-organizer-api -n production -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        
+        # Run comprehensive health checks
+        curl -f http://$SERVICE_URL:8080/actuator/health || exit 1
+        curl -f http://$SERVICE_URL:8080/actuator/info || exit 1
+
+  notify-production:
+    needs: [wait-for-approval, deploy-production]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: Notify deployment status
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ needs.deploy-production.result }}
+        channel: '#deployments'
+        text: |
+          Production deployment ${{ needs.deploy-production.result }} for my-organizer-api
+          Commit: ${{ github.sha }}
+          Branch: ${{ github.ref_name }}
+          Environment: Production
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
