@@ -5,10 +5,10 @@ spring:
   application:
     name: Super Organizer
   datasource:
-    url: jdbc:postgresql://localhost:5432/super_organizer_db
+    url: jdbc:postgresql://79.174.88.168:18180/rcherepin_db
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: password
+    username: rcherepin
+    password: 'Wrongpass911#'
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:

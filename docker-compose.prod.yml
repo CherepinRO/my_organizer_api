@@ -8,9 +8,9 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=postgres
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/super_organizer_db
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://79.174.88.168:18180/rcherepin_db
+      - SPRING_DATASOURCE_USERNAME=rcherepin
+      - SPRING_DATASOURCE_PASSWORD='Wrongpass911#'
       - JAVA_OPTS=-Xmx1g -Xms512m
     depends_on:
       postgres:

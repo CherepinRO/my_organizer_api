@@ -27,10 +27,10 @@ data:
       application:
         name: Super Organizer
       datasource:
-        url: jdbc:postgresql://super-organizer-postgres:5432/super_organizer_db
+        url: jdbc:postgresql://79.174.88.168:18180/rcherepin_db
         driver-class-name: org.postgresql.Driver
-        username: postgres
-        password: password
+        username: rcherepin
+        password: 'Wrongpass911#'
       jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         hibernate:
@@ -59,9 +59,9 @@ metadata:
   namespace: super-organizer
 type: Opaque
 data:
-  postgres-username: cG9zdGdyZXM=
-  postgres-password: cGFzc3dvcmQ=
-  postgres-database: c3VwZXJfb3JnYW5pemVyX2Ri
+  postgres-username: cmNoZXJlcGlu
+  postgres-password: V3JvbmdwYXNzOTExIw==
+  postgres-database: cmNoZXJlcGluX2Ri
 
 ---
 # ConfigMap for PostgreSQL initialization scripts
