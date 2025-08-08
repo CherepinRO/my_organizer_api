@@ -8,7 +8,6 @@ WORKDIR /app
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle.kts .
-COPY settings.gradle.kts .
 
 # Make gradlew executable
 RUN chmod +x gradlew
@@ -23,7 +22,7 @@ COPY src src
 RUN ./gradlew build -x test --no-daemon
 
 # Production stage
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jre
 
 # Create app user for security
 RUN groupadd -r appuser && useradd -r -g appuser appuser
@@ -32,7 +31,7 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 WORKDIR /app
 
 # Copy the built jar from build stage
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/*-1.0.0.jar app.jar
 
 # Change ownership to app user
 RUN chown appuser:appuser app.jar
